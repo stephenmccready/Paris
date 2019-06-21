@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="List and Map of Paris Markets including hours and address">
+<meta name="keywords" content="Paris,Markets,Hours,Map,Location">
+<meta property="og:title" content="Paris Markets">
+<meta property="og:description" content="List and Map of Paris Markets including hours and address">
+<title>Paris Markets</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" />
+<style>#map-canvas{height:30em;}
+.customInfobox {background-color: rgba(0,0,0,0.5);color: white;max-width: 325px;border-radius: 10px;padding: 10px;font-size:12px;pointer-events:auto !important;}
+@media screen and (max-width: 620px){
+#wpforo-wrap .wpfl-1 .wpforo-forum-info, #wpforo-wrap .wpfl-2 .wpforo-forum-info {
+    width: 80% !important;
+  }
+}
+</style>
+</head>
+<body>
+<div style="font-family:FontAwesome;position:absolute;color:transparent;"></div>
+<div>
+<form>
+  <label class="checkbox-inline"><input type="checkbox" id="Mon" value="Mon" onclick="loadMap()" checked> Mo</label>&nbsp;
+  <label class="checkbox-inline"><input type="checkbox" id="Tue" value="Tue" onclick="loadMap()" checked> Tu</label>&nbsp;
+  <label class="checkbox-inline"><input type="checkbox" id="Wed" value="Wed" onclick="loadMap()" checked> We</label>&nbsp;
+  <label class="checkbox-inline"><input type="checkbox" id="Thu" value="Thu" onclick="loadMap()" checked> Th</label>&nbsp;
+  <label class="checkbox-inline"><input type="checkbox" id="Fri" value="Fri" onclick="loadMap()" checked> Fr</label>&nbsp;
+  <label class="checkbox-inline"><input type="checkbox" id="Sat" value="Sat" onclick="loadMap()"> Sa</label>&nbsp;
+  <label class="checkbox-inline"><input type="checkbox" id="Sun" value="Sun" onclick="loadMap()"> Su</label>
+</form></div>
+<div id="map-canvas">Loading...</div>
+<script type='text/javascript' charset="utf-8">
+function loadMap() {
+
+var map = new Microsoft.Maps.Map(document.getElementById('map-canvas'), {
+	credentials: 'Am9Vjl9n5UajkUfSBWrKPus5HNYffqtTRHXK4758LkwSHXC9ekPkqRPoa-NVTZ6b',
+	center: new Microsoft.Maps.Location(48.8567, 2.3508),
+	zoom: 12
+});
+
+var pinlocation = new Microsoft.Maps.Location(48.83926, 2.34948);
+var pin = createFontPushpin(pinlocation, '\uF015', 'FontAwesome', 20, 'red');
+map.entities.push(pin);
+
+//Create an infobox at the center of the map but don't show it.
+var infoboxOptions = {width:275,height:100,offset:new Microsoft.Maps.Point(10,0),showPointer:true,visible:false}; 
+infobox = new Microsoft.Maps.Infobox(map.getCenter(), infoboxOptions);
+infobox.setMap(map);
+
+var mkts = [{name:"Saint-Eustache-Les Halles",type:"outdoor"
+,addr:"Rue Montmartre, btwn rue Rambuteau & rue du Jour",lat:48.86399,lng:2.34555,metro:"Châtelet-Les-Halles (line 4); RER-A,B,D."
+,hours:"Thu 12:30 - 8pm; Sun 7am - 3pm",mon:"",tue:"",wed:"",thu:"12:30 - 8pm",fri:"",sat:"",sun:"7am - 3pm",arr:"1"}];
+mkts.push ({name:"Saint-Honoré",type:"outdoor"
+,addr:"Place du Marché-Saint-Honoré, 75001 Paris",lat:48.866049,lng:2.331157,metro:"Pyramides (lines 7, 14)"
+,hours:"Wed 12:30 - 8:30pm; Sat 7am - 3pm",mon:"",tue:"",wed:"12:30 - 8:30pm",thu:"",fri:"",sat:"7am - 3pm",sun:"",arr:"1"});
+
+mkts.push ({name:"Bourse",type:"outdoor"
+,addr:"Place de la Bourse",lat:48.869,lng:2.34211,metro:"Bourse (line 3)"
+,hours:"Tue & Fri, 12:30 - 8:30pm",mon:"",tue:"12:30 - 8:30pm",wed:"",thu:"",fri:"12:30 - 8:30pm",sat:"",sun:"",arr:"2"});
+
+mkts.push ({name:"Les Enfants Rouge",type:"indoor"
+,addr:"39, rue de Bretagne",lat:48.86296,lng:2.36215,metro:"Filles-du-Calvaire (line 8)"
+,hours:"Tue - Sat, 8:30am - 1pm & 4 - 7:30pm (until 8pm Fri. & Sat.); Sun 8:30am - 2pm"
+,mon:"",tue:"8:30am - 1pm & 4 - 7:30pm",wed:"8:30am - 1pm & 4 - 7:30pm",thu:"8:30am - 1pm & 4 - 7:30pm",fri:"8:30am - 1pm & 4 - 8pm",sat:"8:30am - 1pm & 4 - 8pm",sun:"8:30am - 2pm",arr:"3"});
+
+mkts.push ({name:"Baudoyer",type:"outdoor"
+,addr:"Place Baudoyer",metro:"Hôtel-de-Ville (lines 1, 11)",lat:48.856212,lng:2.355420
+,hours:"Wed 12:30 - 8:30pm; Sat 7am - 3pm",mon:"",tue:"",wed:"12:30 - 8:30pm",thu:"",fri:"",sat:"7am - 3pm",sun:"",arr:"4"});
+
+mkts.push ({name:"Maubert",type:"outdoor"
+,addr:"Place Maubert",metro:"Maubert-Mutualité (line 10)",lat:48.850150,lng:2.348686
+,hours:"Tue & Thu 7am - 2:30pm; Sat 7am - 3pm",mon:"",tue:"7am - 2:30pm",wed:"",thu:"7am - 2:30pm",fri:"",sat:"7am - 3pm",sun:"",arr:"5"});
+mkts.push ({name:"Monge",type:"outdoor"
+,addr:"Place Monge,",metro:"Place-Monge (line 7)",lat:48.842228,lng:2.352052
+,hours:"Wed & Fri 7am - 2:30pm; Sun 7am - 3pm",mon:"",tue:"",wed:"7am - 2:30pm",thu:"",fri:"7am - 2:30pm",sat:"",sun:"7am - 3pm",arr:"5"});
+mkts.push ({name:"Port-Royal",type:"outdoor"
+,addr:"Beside Val de Grâce Hospital, boulevard Port Royal",metro:"Port-Royal (RER-B)",lat:48.838163,lng:2.343198
+,hours:"Tue & Thu 7am - 2:30pm; Sat 7am - 3pm",mon:"",tue:"7am - 2:30pm",wed:"",thu:"7am - 2:30pm",fri:"",sat:"7am - 3pm",sun:"",arr:"5"});
+
+mkts.push ({name:"Raspail",type:"outdoor"
+,addr:"Boulevard Raspail, btwn rue du Cherche-Midi & rue de Rennes",metro:"Rennes (line 12)",lat:48.849019,lng:2.327497
+,hours:"Tue & Fri 7am - 2:30pm; Sun 9am - 2pm",mon:"",tue:"7am - 2:30pm",wed:"",thu:"",fri:"7am - 2:30pm",sat:"",sun:"9am - 2pm",arr:"6"});
+
+mkts.push ({name:"Saint-Germain",type:"indoor"
+,addr:"4-6, rue Lobineau (corner of rue Félibien)",metro:"Mabillon (line 10)",lat:48.85178, lng:2.33646
+,hours:"Tue - Fri 8am - 1pm & 4 - 8pm; Sat 8am - 1:30pm & 3:30 - 8pm; Sun 8am - 1:30pm",mon:"",tue:"8am - 1pm & 4 - 8pm;",wed:"8am - 1pm & 4 - 8pm;",thu:"8am - 1pm & 4 - 8pm;",fri:"8am - 1pm & 4 - 8pm;",sat:"8am - 1:30pm & 3:30 - 8pm",sun:"8am - 1:30pm",arr:"6"});
+mkts.push ({name:"Saxe-Breteuil",type:"outdoor"
+,addr:"Avenue de Saxe",metro:"Ségur (line 10)",lat:48.84638,lng:2.31276
+,hours:"Thu 7am - 2:30pm; Sat 7am - 3pm",mon:"",tue:"",wed:"",thu:"7am - 2:30pm",fri:"",sat:"7am - 3pm",sun:"",arr:"7"});
+
+mkts.push ({name:"Aguesseau",type:"outdoor"
+,addr:"Place de la Madeleine",metro:"Madeleine (lines 8, 12, 14)",lat:48.871020,lng:2.320677
+,hours:"Tue & Fri 7am - 2:30pm",mon:"",tue:"7am - 2:30pm",wed:"",thu:"",fri:"7am - 2:30pm",sat:"",sun:"",arr:"8"});
+mkts.push ({name:"Batignolles",type:"outdoor"
+,addr:"boulevard des Batignolles",metro:"Rome (line 2)",lat:48.88284,lng:2.32365
+,hours:"Sat 9am - 3pm",mon:"",tue:"",wed:"",thu:"",fri:"",sat:"Sat 9am - 3pm",sun:"",arr:"8"});
+mkts.push ({name:"Europe",type:"indoor"
+,addr:"1, rue Corvetto",metro:"Villiers (lines 2, 3)",lat:48.877383,lng:2.314887
+,hours:"Tue - Sun 8:30am - 8:30pm",mon:"",tue:"8:30am - 8:30pm",wed:"8:30am - 8:30pm",thu:"8:30am - 8:30pm",fri:"8:30am - 8:30pm",sat:"8:30am - 8:30pm",sun:"8:30am - 8:30pm",arr:"8"});
+
+mkts.push ({name:"Anvers",type:"outdoor"
+,addr:"Place d'Anvers",metro:"Anvers (line 2)",lat:48.88276,lng:2.34418
+,hours:"Fri 3 - 8:30pm",mon:"",tue:"",wed:"",thu:"",fri:"3 - 8:30pm",sat:"",sun:"",arr:"9"});
+
+mkts.push ({name:"Alibert",type:"outdoor"
+,addr:"Near Saint-Louis Hospital, on rue Alibert",metro:"Goncourt (line 11)",lat:48.871939,lng:2.368706
+,hours:"",mon:"",tue:"",wed:"",thu:"",fri:"",sat:"",sun:"Sun 7am - 3pm",arr:"10"});
+mkts.push ({name:"Saint-Martin",type:"indoor"
+,addr:"31-33, rue du Château-d'Eau",metro:"Château-d'Eau (line 4)",lat:48.87096,lng:2.35853
+,hours:"Tue - Fri 9am - 1pm & 4 - 7:30pm; Sat 9am - 7:30pm; Sun 9am - 1:30pm",mon:"",tue:"9am - 1pm",wed:"9am - 1pm",thu:"9am - 1pm",fri:"9am - 1pm",sat:"9am - 7:30pm",sun:"9am - 1:30pm",arr:"10"});
+
+mkts.push ({name:"Saint-Quentin",type:"indoor"
+,addr:"85 bis, boulevard Magenta",metro:"Gare de l'Est (lines 4, 5, 7)",lat:48.876432,lng:2.356083
+,hours:"Tue - Fri 9am - 1pm & 4 - 7:30pm; Sat 9am - 1pm & 3:30 - 7:30pm; Sun 8:30am - 1:30pm",mon:"",tue:"9am - 1pm & 4 - 7:30pm",wed:"9am - 1pm & 4 - 7:30pm",thu:"9am - 1pm & 4 - 7:30pm",fri:"9am - 1pm & 4 - 7:30pm",sat:"9am - 1pm & 3:30 - 7:30pm",sun:"8:30am - 1:30pm",arr:"10"});
+
+mkts.push ({name:"Belleville",type:"outdoor"
+,addr:"boulevard de Belleville, btwn rue Jean-Pierre Timbaud & rue du Faubourg du Temple",metro:"Belleville (lines 2, 11), Couronnes (line 2)",lat:48.869436, lng:2.380011
+,hours:"Tue & Fri 7am - 2:30pm",mon:"",tue:"7am - 2:30pm",wed:"",thu:"",fri:"7am - 2:30pm",sat:"",sun:"",arr:"11"});
+mkts.push ({name:"Bastille",type:"outdoor"
+,addr:"Boulevard Richard-Lenoir, btwn rue Amelot & rue Saint-Sabin",metro:"Bastille (lines 1, 5, 8)",lat:48.856053,lng:2.370198
+,hours:"Thu 7am - 2:30pm; Sun 7am - 3pm",mon:"",tue:"",wed:"",thu:"7am - 2:30pm",fri:"",sat:"",sun:"Sun 7am - 3pm",arr:"11"});
+mkts.push ({name:"Chronne",type:"outdoor"
+,addr:"Btwn #129 boulevard de Charonne & rue Alexandre Dumas",metro:"Alexandre Dumas (line 2)",lat:48.855402, lng:2.395219
+,hours:"Wed 7am - 2:30pm; Sat 7am - 3pm",mon:"",tue:"",wed:"7am - 2:30pm",thu:"",fri:"",sat:"Sat 7am - 3pm",sun:"",arr:"11"});
+mkts.push ({name:"Père-LaChaise",type:"outdoor"
+,addr:"Boulevard de Ménilmontant, btwn rue des Panoyaux & rue des Cendriers",metro:"Ménilmontant (line 2)",lat:48.865414, lng:2.384609
+,hours:"Tue & Fri 7am - 2:30pm",mon:"",tue:"7am - 2:30pm",wed:"",thu:"",fri:"7am - 2:30pm",sat:"",sun:"",arr:"11"});
+mkts.push ({name:"Popincourt",type:"outdoor"
+,addr:"Boulevard Richard-Lenoir",metro:"Oberkampf (lines 5, 9)",lat:48.863438, lng:2.371425
+,hours:"Tue & Fri 7am - 2:30pm",mon:"",tue:"7am - 2:30pm",wed:"",thu:"",fri:"7am - 2:30pm",sat:"",sun:"",arr:"11"});
+
+mkts.push ({name:"Beauvau",type:"indoor"
+,addr:"Place d'Aligre",metro:"Ledru-Rollin (line 8)",lat:48.848969, lng:2.377290
+,hours:"Tue - Fri 9am - 1pm & 4 - 7:30pm; Sat 9am - 1pm & 3:30 - 7:30pm; Sun 9am - 1:30pm",mon:"",tue:"9am - 1pm & 4 - 7:30pm",wed:"9am - 1pm & 4 - 7:30pm",thu:"9am - 1pm & 4 - 7:30pm",fri:"9am - 1pm & 4 - 7:30pm",sat:"9am - 1pm & 3:30 - 7:30pm",sun:"Sun 9am - 1:30pm",arr:"12"});
+mkts.push ({name:"Bercy",type:"outdoor"
+,addr:"Btwn 14 place Lachambeaudie & 11 rue Baron-le-Roy",metro:"Cour Saint-Émilion (line 14)",lat:48.836220, lng:2.387600
+,hours:"Wed 3 - 8pm; Sun 7am - 3pm",mon:"",tue:"",wed:"3 - 8pm",thu:"",fri:"",sat:"",sun:"7am - 3pm",arr:"12"});
+mkts.push ({name:"Cours de Vincennes",type:"outdoor"
+,addr:"Cours de Vincennes, btwn boulevard Picpus & avenue du Docteur Arnold Netter",metro:"Nation (lines 1, 2, 6, 9; RER A), Porte de Vincennes (line 1)",lat:48.847707, lng:2.403289
+,hours:"Wed 7am - 2:30pm; Sat 7am - 3pm",mon:"",tue:"",wed:"7am - 2:30pm",thu:"",fri:"",sat:"7am - 3pm",sun:"",arr:"12"});
+mkts.push ({name:"Daumesnil",type:"outdoor"
+,addr:"Boulevard de Reuilly, btwn rue de Charenton & place Félix-Eboué",metro:"Daumesnil (lines 6, 8)",lat:48.839239, lng:2.392176
+,hours:"Tue & Fri 7am - 2:30pm",mon:"",tue:"7am - 2:30pm",wed:"",thu:"",fri:"7am - 2:30pm",sat:"",sun:"",arr:"12"});
+mkts.push ({name:"Ledru-Rollin",type:"outdoor"
+,addr:"Avenue Ledru-Rollin, btwn rue de Lyon & rue de Bercy",metro:"Gare de Lyon (lines 1, 14), Quai de la Rapée (line 5)",lat:48.847619, lng:2.370759
+,hours:"Thu 7am - 2:30pm; Sat 7am - 3pm",mon:"",tue:"",wed:"",thu:"7am - 2:30pm",fri:"",sat:"Sat 7am - 3pm",sun:"",arr:"12"});
+mkts.push ({name:"Saint-Éloi",type:"outdoor"
+,addr:"36-38 rue de Reuilly",metro:"Reuilly-Diderot (lines 1, 8)",lat:48.84613, lng:2.38784
+,hours:"Thu 7am - 2:30pm; Sun 7am - 3pm",mon:"",tue:"",wed:"",thu:"7am - 2:30pm",fri:"",sat:"",sun:"Sun 7am - 3pm",arr:"12"});
+
+mkts.push ({name:"ALÉSIA",type:"outdoor"
+,addr:"Even side of rue de la Glacière & odd side of rue de la Santé (from #137 to the end)",metro:"Glacière (line 6)",lat:48.826778, lng:2.341745
+,hours:"Wed 7am - 2:30pm; Sat 7am - 3pm",mon:"",tue:"",wed:"7am - 2:30pm",thu:"",fri:"",sat:"7am - 3pm",sun:"",arr:"13"});
+mkts.push ({name:"AUGUSTE-BLANQUI",type:"outdoor"
+,addr:"Boulevard Blanqui, btwn place d'Italie & rue Barrault",metro:"Corvisart (line 6)",lat:48.830544, lng:2.352761
+,hours:"Tue & Fri 7am - 2:30pm; Sun 7am - 3pm",mon:"",tue:"7am - 2:30pm",wed:"",thu:"",fri:"7am - 2:30pm",sat:"",sun:"7am - 3pm",arr:"13"});
+mkts.push ({name:"BOBILLOT",type:"outdoor"
+,addr:"Rue Bobillot, btwn place Rungis & rue de la Colonie",metro:"Corvisart (line 6), Tolbiac (line 7)",lat:48.823123, lng:2.347664
+,hours:"Tue & Fri 7am - 2:30pm",mon:"",tue:"7am - 2:30pm",wed:"",thu:"",fri:"7am - 2:30pm",sat:"",sun:"",arr:"13"});
+mkts.push ({name:"JEANNE D'ARC",type:"outdoor"
+,addr:"Place Jeanne-d'Arc",metro:"Olympiades (line 14), Nationale (line 6)",lat:48.830151, lng:2.368549
+,hours:"Thu 7am - 2:30pm; Sun 7am - 3pm",mon:"",tue:"",wed:"",thu:"7am - 2:30pm",fri:"",sat:"",sun:"7am - 3pm",arr:"13"});
+mkts.push ({name:"MAISON-BLANCHE",type:"outdoor"
+,addr:"Avenue d'Italie, btwn #110 & #162",metro:"Maison Blanche (line 7)",lat:48.821982, lng:2.358531
+,hours:"Thu 7am - 2:30pm; Sun 7am - 3pm",mon:"",tue:"",wed:"",thu:"7am - 2:30pm",fri:"",sat:"",sun:"7am - 3pm",arr:"13"});
+mkts.push ({name:"PARIS RIVE GAUCHE",type:"outdoor"
+,addr:"Rue Jean Anouilh & rue Neuve Tolbiac",metro:"Bibliothèque François Mitterrand (line 14; RER-C)",lat:48.83139, lng:2.37824
+,hours:"Fri 12 - 8:45pm",mon:"",tue:"",wed:"",thu:"",fri:"12 - 8:45pm",sat:"",sun:"",arr:"13"});
+mkts.push ({name:"SALPÉTRIÈRE",type:"outdoor"
+,addr:"36, boulevard de l'Hôpital, alongside Square Marie Curie",metro:"Saint-Marcel (line 5), Gare d'Austerlitz (lines 5, 10)",lat:48.840612, lng:2.362263
+,hours:"Tue & Fri 7am - 2:30pm",mon:"",tue:"7am - 2:30pm",wed:"",thu:"",fri:"7am - 2:30pm",sat:"",sun:"",arr:"13"});
+mkts.push ({name:"VINCENT-AURIOL",type:"outdoor"
+,addr:"Boulevard Vincent-Auriol",metro:"Chevaleret (line 6)",lat:48.83368, lng:2.36383
+,hours:"Wed 7am - 2:30pm; Sat 7am - 3pm",mon:"",tue:"",wed:"7am - 2:30pm",thu:"",fri:"",sat:"7am - 3pm",sun:"",arr:"13"});
+
+for(i = 0; i < mkts.length; i++) {
+	if(
+		(mkts[i]["mon"] != '' && document.getElementById('Mon').checked)
+		|| (mkts[i]["tue"] != '' && document.getElementById('Tue').checked)
+		|| (mkts[i]["wed"] != '' && document.getElementById('Wed').checked)
+		|| (mkts[i]["thu"] != '' && document.getElementById('Thu').checked)
+		|| (mkts[i]["fri"] != '' && document.getElementById('Fri').checked)
+		|| (mkts[i]["sat"] != '' && document.getElementById('Sat').checked)
+		|| (mkts[i]["sun"] != '' && document.getElementById('Sun').checked)
+		)
+	{
+		pinlocation = new Microsoft.Maps.Location(mkts[i]["lat"], mkts[i]["lng"]);
+//		var pin = new Microsoft.Maps.Pushpin(pinlocation, {title: mkts[i]["name"],text: '1'});
+		var color='#006400';
+		if(mkts[i]["type"]=='indoor') {
+			color='#888888';
+		}
+		pin = createFontPushpin(pinlocation, '\uf08d', 'FontAwesome', 24, color);
+		pin.metadata = {
+			htmlContent: '<div class="customInfobox"><b>'+mkts[i]["name"]+'</b><div class="pull-right"><input type="button" value="x" onclick="infobox.setOptions({ visible: false });"/></div><br/><i class="fas fa-map-marker-alt"></i> '+mkts[i]["addr"]+'<br/><i class="fas fa-subway"></i> '+mkts[i]["metro"]+'<br/><i class="far fa-calendar-alt"></i> '+mkts[i]["hours"]+'</div>'
+		};
+		Microsoft.Maps.Events.addHandler(pin, 'click', pinClicked);
+	map.entities.push(pin);
+	}
+}
+}
+
+function pinClicked(e) {
+    if (e.target.metadata) {
+    	infobox.setHtmlContent(e.target.metadata.htmlContent);
+        infobox.setOptions({
+            location: e.target.getLocation(),
+            visible: true
+        });
+    }
+}
+
+    function createFontPushpin(location, text, fontName, fontSizePx, color) {
+        var c = document.createElement('canvas');
+        var ctx = c.getContext('2d');
+
+        //Define font style
+        var font = fontSizePx + 'px ' + fontName;
+        ctx.font = font
+
+        //Resize canvas based on sie of text.
+        var size = ctx.measureText(text);
+        c.width = size.width;
+        c.height = fontSizePx;
+
+        //Reset font as it will be cleared by the resize.
+        ctx.font = font;
+        ctx.textBaseline = 'top';
+        ctx.fillStyle = color;
+
+        ctx.fillText(text, 0, 0);
+
+        return new Microsoft.Maps.Pushpin(location, {
+            icon: c.toDataURL(),
+            anchor: new Microsoft.Maps.Point(c.width / 2, c.height / 2) //Align center of pushpin with location.
+        });
+    }
+</script>
+<script src="https://kit.fontawesome.com/f429f186c5.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src='https://www.bing.com/api/maps/mapcontrol?branch=experimental&callback=loadMap' async defer></script>
+</body>
+</html>
