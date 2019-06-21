@@ -1,4 +1,6 @@
 # Paris
 Resources for Paris, France
 
-markets.html - Map of Paris markets including address and opening times (HTML/CSS, Javascript, jQuery, Bootstrap and Bing Maps)
+markets.html - Map of Paris markets including address and opening times 
+Currently has arrondissments 1 thru 13, will add the remaining arrondisments soon
+(HTML/CSS, Javascript, jQuery, Bootstrap and Bing Maps)
